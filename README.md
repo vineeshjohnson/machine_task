@@ -47,13 +47,10 @@ This Flutter application allows users to view a paginated list of users fetched 
 ---
 
 ## ⚙️ Technical Stack
-- **State Management:** Provider, Riverpod, Bloc, or Cubit
-- **Dependency Injection:** get_it or Riverpod
-- **Networking:** Dio or http
-- **Local Storage:** Drift (SQLite) or Hive
-- **Offline Handling:** WorkManager plugin for background sync
-- **Pagination:** Infinite Scroll or PagedListView
-- **Asynchronous Data Handling:** Streams, Riverpod, or Bloc
+- **State Management:**  Bloc
+- **Networking:**  http
+- **Pagination:**  PagedListView
+- **Asynchronous Data Handling:**  Bloc
 - **Image Loading:** CachedNetworkImage
 
 ---
@@ -100,19 +97,10 @@ lib/
 
 ---
 
-## 📜 Assumptions & Considerations
-- **Offline Handling:** Uses WorkManager for syncing data when the device regains internet connectivity.
-- **Performance Optimization:** Uses caching for images with `CachedNetworkImage`.
-- **Best Practices:** Implements clean architecture and follows Flutter development standards.
 
 ---
 
-## 🏆 Evaluation Criteria
-- ✅ Correctness and completeness of implemented features.
-- ✅ Adherence to best practices and architectural patterns.
-- ✅ Code quality, readability, and documentation.
-- ✅ Handling of edge cases and error scenarios.
-- ✅ User experience and UI design considerations.
+
 
 ---
 
