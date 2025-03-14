@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'User App',
         theme: ThemeData(
+          fontFamily: 'poppins',
             primaryColor: AllColors().textColor,
             secondaryHeaderColor: AllColors().commonColor),
         home: const UserScreen());
