@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:user_app/core/common/colors.dart';
 import 'package:user_app/features/movies/presentation/screens/movie_screen.dart';
@@ -56,13 +57,26 @@ class UserCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // User Avatar with Gradient Overlay
+                    // User Avatar with CachedNetworkImage
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(user.avatar),
+                        CachedNetworkImage(
+                          imageUrl: user.avatar,
+                          imageBuilder: (context, imageProvider) =>
+                              CircleAvatar(
+                            radius: 50,
+                            backgroundImage: imageProvider,
+                          ),
+                          placeholder: (context, url) => const CircleAvatar(
+                            radius: 50,
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const CircleAvatar(
+                            radius: 50,
+                            child: Icon(Icons.error, color: Colors.red),
+                          ),
                         ),
                         Container(
                           width: 100,

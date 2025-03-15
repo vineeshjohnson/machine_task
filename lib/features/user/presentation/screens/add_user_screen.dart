@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/core/common/colors.dart';
+import 'package:user_app/core/database/database.dart';
 import 'package:user_app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:user_app/features/user/presentation/widgets/headding_widget.dart';
 import 'package:user_app/features/user/presentation/widgets/textfield_widget.dart';
@@ -19,12 +20,23 @@ class AddUserScreen extends StatelessWidget {
       child: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
           if (state is UserCreatedState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('User added successfully!'),
-                duration: Duration(seconds: 2),
-              ),
-            );
+            print(state.response);
+            if (state.response) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('User added successfully!'),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      'Network is down..data will be updated when its come online'),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            }
           }
         },
         builder: (context, state) {
@@ -58,7 +70,6 @@ class AddUserScreen extends StatelessWidget {
                           children: [
                             const HeaddingWidget(title: 'Create New User'),
                             const SizedBox(height: 20),
-
                             CustomTextFormField(
                               controller: nameController,
                               labelText: 'Full Name',
@@ -71,7 +82,6 @@ class AddUserScreen extends StatelessWidget {
                               },
                             ),
                             const SizedBox(height: 20),
-
                             CustomTextFormField(
                               controller: jobController,
                               labelText: 'Job Title',
@@ -84,8 +94,6 @@ class AddUserScreen extends StatelessWidget {
                               },
                             ),
                             const SizedBox(height: 30),
-
-                            // Custom Button with gradient
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(

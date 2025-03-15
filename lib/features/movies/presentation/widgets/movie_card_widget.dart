@@ -1,5 +1,4 @@
-// ignore_for_file: deprecated_member_use
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:user_app/core/common/colors.dart';
 import 'package:user_app/features/movies/data/models/movie_model.dart';
@@ -13,8 +12,6 @@ class MovieCardWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        // ignore: duplicate_ignore
-        // ignore: deprecated_member_use
         color: Colors.white.withOpacity(0.05),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
@@ -29,11 +26,23 @@ class MovieCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Stack(
           children: [
-            // Movie Poster
+            // Movie Poster using CachedNetworkImage
             Positioned.fill(
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w400${movie.posterpath}',
+              child: CachedNetworkImage(
+                imageUrl: 'https://image.tmdb.org/t/p/w400${movie.posterpath}',
                 fit: BoxFit.cover,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[800],
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.black,
+                  child: const Center(
+                    child: Icon(Icons.error, color: Colors.red),
+                  ),
+                ),
               ),
             ),
 
@@ -74,7 +83,7 @@ class MovieCardWidget extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     'Release: ${movie.releasedate}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.white70,
                     ),

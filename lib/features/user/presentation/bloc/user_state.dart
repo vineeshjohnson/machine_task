@@ -11,15 +11,12 @@ final class UserInitialFetchedState extends UserState {
   UserInitialFetchedState({required this.users});
 }
 
+final class UserCreatedState extends UserState {
+  final bool response;
 
-final class UserCreatedState extends UserState{
-
+  UserCreatedState({required this.response});
 }
 
-final class LoadingState extends UserState{
+final class LoadingState extends UserState {}
 
-}
-
-final class ErrorState extends UserState{
-  
-}
+final class ErrorState extends UserState {}

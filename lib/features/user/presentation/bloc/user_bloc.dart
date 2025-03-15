@@ -1,5 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart';
+import 'package:user_app/core/database/database.dart';
 import 'package:user_app/features/user/data/models/user_model.dart';
 import 'package:user_app/features/user/domain/repositories/user_repository.dart';
 
@@ -22,7 +26,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     on<AddUserEvent>((event, emit) async {
       bool response = await createUser(event.name, event.job);
-      response ? emit(UserCreatedState()) : emit(ErrorState());
+      response ? emit(UserCreatedState(response: response)) : emit(ErrorState());
     });
   }
 }
@@ -34,7 +38,22 @@ Future<List<UserModel>> getUser(int page) {
 }
 
 Future<bool> createUser(String name, String job) async {
-  UserRepository userRepository = UserRepository();
-  final response = await userRepository.createUser(name, job);
-  return response;
+  var connectivityResult = await Connectivity().checkConnectivity();
+
+  if (!connectivityResult.contains(ConnectivityResult.mobile)&&!connectivityResult.contains(ConnectivityResult.wifi)) {
+    final AppDatabase db = AppDatabase();
+
+    await db.insertUser(
+      name,
+      job,
+    );
+    ScaffoldMessenger.of(context as BuildContext).showSnackBar(
+      const SnackBar(content: Text("Saved offline! Will sync when online.")),
+    );
+    return false;
+  } else {
+    UserRepository userRepository = UserRepository();
+    final response = await userRepository.createUser(name, job);
+    return response;
+  }
 }
