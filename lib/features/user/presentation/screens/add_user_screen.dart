@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/core/common/colors.dart';
-import 'package:user_app/core/database/database.dart';
 import 'package:user_app/features/user/presentation/bloc/user_bloc.dart';
 import 'package:user_app/features/user/presentation/widgets/headding_widget.dart';
 import 'package:user_app/features/user/presentation/widgets/textfield_widget.dart';

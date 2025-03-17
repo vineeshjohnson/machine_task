@@ -11,7 +11,7 @@ void main() {
   Workmanager().registerPeriodicTask(
     "syncTask",
     "syncUsersTask",
-    frequency: const Duration(minutes: 15), // Sync every 15 minutes
+    frequency: const Duration(minutes: 5),
   );
 
   runApp(const MyApp());
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'User App',
         theme: ThemeData(
-          fontFamily: 'poppins',
+            fontFamily: 'poppins',
             primaryColor: AllColors().textColor,
             secondaryHeaderColor: AllColors().commonColor),
         home: const UserScreen());

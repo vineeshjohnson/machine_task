@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 import 'package:user_app/core/database/database.dart';
 import 'package:user_app/features/user/data/models/user_model.dart';
